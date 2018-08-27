@@ -1,0 +1,2 @@
+class FrameByUsersController < ApplicationController
+end

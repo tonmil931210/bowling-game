@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  template: template0
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/alto_development
+
+test:
+  <<: *default
+  database: db/alto_test
+
+production:
+  <<: *default
+  database: db/alto_production

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  frame_by_user: one
+  try1: 
+  try2: 
+  try3: 
+  score: MyString
+  turn: 
+
+two:
+  frame_by_user: two
+  try1: 
+  try2: 
+  try3: 
+  score: MyString
+  turn: 

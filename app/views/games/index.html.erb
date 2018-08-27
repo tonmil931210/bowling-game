@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Games</h1>
+
+<% @games.each do |game| %>
+  <h4>Winner: <%= game.winner || "Niguno" %></h4>
+  <p><%= link_to 'Show', game %><p>
+<h3>Players</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% game.users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.username %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<br>
+
+<%= link_to 'New Game', new_game_path %>
+
+

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Frame by user:</strong>
+  <%= @frame.frame_by_user %>
+</p>
+
+<p>
+  <strong>Try1:</strong>
+  <%= @frame.try1 %>
+</p>
+
+<p>
+  <strong>Try2:</strong>
+  <%= @frame.try2 %>
+</p>
+
+<p>
+  <strong>Try3:</strong>
+  <%= @frame.try3 %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @frame.score %>
+</p>
+
+<p>
+  <strong>Turn:</strong>
+  <%= @frame.turn %>
+</p>
+
+<%= link_to 'Edit', edit_frame_path(@frame) %> |
+<%= link_to 'Back', frames_path %>

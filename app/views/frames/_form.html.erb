@@ -1,0 +1,44 @@
+<%= form_with(url: game_frames_path,model: frame, local: true) do |form| %>
+  <% if frame.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(frame.errors.count, "error") %> prohibited this frame from being saved:</h2>
+
+      <ul>
+      <% frame.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :try1 %>
+    <%= form.text_field :try1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :try2 %>
+    <%= form.text_field :try2 %>
+  </div>
+  
+  <% if @game.turn == 10 %>
+  <div class="field">
+    <%= form.label :try3 %>
+    <%= form.text_field :try3 %>
+  </div>
+  <% end %>
+  
+  <div>
+    <%= form.label :Players %>
+    <%= form.collection_select :user_id, @game.users, :id, :username, include_blank: false %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :Turn %>
+    <%= form.label @game.turn %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
