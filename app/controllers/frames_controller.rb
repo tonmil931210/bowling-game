@@ -94,8 +94,8 @@ class FramesController < ApplicationController
     end
     two_frame = @frame.frame_by_user.frames.where(turn: (@frame.turn - 2)).first
     if two_frame
-      if two_frame.status == 'strike'
-          score = two_frame.score + @frame.score
+      if two_frame.status == 'strike' && one_frame.try2 == 0
+          score = two_frame.score + @frame.try1
           two_frame.update(score: score)
       end
     end
