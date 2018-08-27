@@ -7,9 +7,11 @@
 
 <%= link_to 'Back', games_path %>
 
+<% if @game.winner.nil? %>
 <div>
     <%= button_to  'Add a frame', new_game_frame_path(@game.id), :method => "get"%>
 </div>
+<% end %>
 
 <% @game.frame_by_users.each do |player| %>
 
