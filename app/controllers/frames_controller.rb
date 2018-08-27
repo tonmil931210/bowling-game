@@ -29,45 +29,17 @@ class FramesController < ApplicationController
     @game = Game.find_by_id(params[:game_id])
     @frame_by_user = FrameByUser.where(user_id: params[:frame][:user_id], game_id: params[:game_id]).first
     @frame = Frame.new(frame_params.merge(frame_by_user: @frame_by_user, turn: @frame_by_user.game.turn))
-    respond_to do |format|
-      if @frame.save
-        update_past()
-        set_score_general()
-        set_turn_general()
-        set_winner() if @game.turn == 10
-        format.html { redirect_to Game.find_by_id(params[:game_id]), notice: 'Frame was successfully created.' }
-        format.json { render :show, status: :created, location: @frame }
-      else
-        @game_id = params[:game_id]
-        @game = Game.find_by_id(@game_id)
-        format.html { render :new }
-        format.json { render json: @frame.errors, status: :unprocessable_entity }
-      end
+    unless @frame.save
+      @game_id = params[:game_id]
+      @game = Game.find_by_id(@game_id)
+      render :new
+      return nil
     end
-  end
-
-  # PATCH/PUT /frames/1
-  # PATCH/PUT /frames/1.json
-  def update
-    respond_to do |format|
-      if @frame.update(frame_params)
-        format.html { redirect_to @frame, notice: 'Frame was successfully updated.' }
-        format.json { render :show, status: :ok, location: @frame }
-      else
-        format.html { render :edit }
-        format.json { render json: @frame.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /frames/1
-  # DELETE /frames/1.json
-  def destroy
-    @frame.destroy
-    respond_to do |format|
-      format.html { redirect_to frames_url, notice: 'Frame was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    update_past()
+    set_score_general()
+    set_turn_general()
+    set_winner() if @game.turn == 10
+    redirect_to Game.find_by_id(params[:game_id]), notice: 'Frame was successfully created'
   end
 
   private
