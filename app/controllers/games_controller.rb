@@ -33,7 +33,7 @@ class GamesController < ApplicationController
         @game.frame_by_users.new(user_id: user)
     end
     @game.players = users_list.length
-    redirect_to Game.find_by_id(params[:game_id]), notice: 'Game was successfully created'
+    redirect_to Game.find_by_id(@game.id), notice: 'Game was successfully created'
   end
 
   private
