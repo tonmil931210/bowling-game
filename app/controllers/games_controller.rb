@@ -33,8 +33,15 @@ class GamesController < ApplicationController
         @game.frame_by_users.new(user_id: user)
     end
     @game.players = users_list.length
+    unless @game.save
+      @users = User.all
+      render :new
+      return nil
+    end
     redirect_to Game.find_by_id(@game.id), notice: 'Game was successfully created'
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
