@@ -30,27 +30,28 @@ class Frame < ApplicationRecord
   
   def tries_valid?
       
-    unless try1.nil? && self.try2.nil?
-        if try3.nil? && self.turn != 10
-            if ((self.try1 + self.try2) > 10 )
+    if try1.nil? || self.try2.nil?
+        errors.add(:base, 'Not valid try1 or try2')
+        return nil
+    end
+    
+    if try3.nil? && self.turn != 10
+        if ((self.try1 + self.try2) > 10 )
+            errors.add(:base, 'Enter valid pin entries for each tries')
+        end
+        if ((self.try1 == 10 && self.try2 != 0) || (self.try2 == 10 && self.try1 != 0))
+            errors.add(:base,'In case of strike mark other pin as 0')
+        end
+    elsif try3.nil? && self.turn == 10
+        errors.add(:base, 'Enter valid pin entries for try3')
+    elsif !try3.nil? && self.turn == 10
+        if self.try1 != 10
+            if ((self.try1 +  self.try2 ) > 10 )
                 errors.add(:base, 'Enter valid pin entries for each tries')
-            end
-            if ((self.try1 == 10 && self.try2 != 0) || (self.try2 == 10 && self.try1 != 0))
-                errors.add(:base,'In case of strike mark other pin as 0')
-            end
-        elsif try3.nil? && self.turn == 10
-            errors.add(:base, 'Enter valid pin entries for try3')
-        elsif !try3.nil? && self.turn == 10
-            if self.try1 != 10
-                if ((self.try1 +  self.try2 ) > 10 )
-                    errors.add(:base, 'Enter valid pin entries for each tries')
-                elsif ((self.try1 +  self.try2 ) < 10 )
-                    errors.add(:base, 'Not valid enter try3')
-                end
+            elsif ((self.try1 +  self.try2 ) < 10 )
+                errors.add(:base, 'Not valid enter try3')
             end
         end
-    else
-        errors.add(:base, 'Not valid try1 and try2')
     end
   end
 end
