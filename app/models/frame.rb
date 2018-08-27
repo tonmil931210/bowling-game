@@ -3,8 +3,8 @@ class Frame < ApplicationRecord
   
   validates_presence_of :try1, :try2, :frame_by_user, :turn
   
-  validates :try1, :numericality => { :only_integer => true, :less_than_or_equal_to => 10,  :greater_than_or_equal_to => 0 }
-  validates :try2, :numericality => { :only_integer => true, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0}
+  validates :try1, :numericality => { :only_integer => true, :less_than_or_equal_to => 10,  :greater_than_or_equal_to => 0 }, :allow_blank => false
+  validates :try2, :numericality => { :only_integer => true, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0}, :allow_blank => false
   validates :try3, :numericality => { :only_integer => true, :less_than_or_equal_to => 10, :greater_than_or_equal_to => 0}, :allow_blank => true
   validates :turn, :numericality => { :only_integer => true, :greater_than => 0, :less_than_or_equal_to => 10}
   
@@ -30,7 +30,7 @@ class Frame < ApplicationRecord
   
   def tries_valid?
     if try3.nil? && self.turn != 10
-        if ((self.try1 +  self.try2 ) > 10 )
+        if ((self.try1 + self.try2) > 10 )
             errors.add(:base, 'Enter valid pin entries for each tries')
         end
         if ((self.try1 == 10 && self.try2 != 0) || (self.try2 == 10 && self.try1 != 0))
